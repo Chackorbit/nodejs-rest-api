@@ -21,11 +21,11 @@ const getContactById = async (contactId) => {
 };
 
 const removeContact = async (contactId) => {
-  const contacts = await listContacts();
   const currentRemoveContact = await getContactById(contactId);
   if (!currentRemoveContact) {
     return null;
   }
+  const contacts = await listContacts();
 
   const remove = contacts.filter((item) => item.id !== contactId);
   await fs.writeFile(filePath, JSON.stringify(remove));
@@ -59,6 +59,7 @@ const updateContact = async (contactId, body) => {
       }
     }
   });
+
   const currentContact = getContactById(contactId);
   await fs.writeFile(filePath, JSON.stringify(contacts));
   return currentContact;
